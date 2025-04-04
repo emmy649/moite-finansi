@@ -11,12 +11,22 @@ function switchTab(tabId) {
     localStorage.setItem('plannedItems', JSON.stringify(plannedItems));
   }
   
+  function formatDateWithDay(dateStr) {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('bg-BG', options);
+  }
+  
   function renderPlanned() {
     const list = document.getElementById('plannedList');
+    const totalSpan = document.getElementById('totalPlanned');
     list.innerHTML = '';
+  
+    let total = 0;
     plannedItems.forEach((item, index) => {
+      total += parseFloat(item.amount);
       const li = document.createElement('li');
-      li.textContent = `${item.text} – ${item.date}`;
+      li.textContent = `${item.text} – ${item.amount} лв – ${formatDateWithDay(item.date)}`;
   
       const delBtn = document.createElement('button');
       delBtn.textContent = 'X';
@@ -30,16 +40,20 @@ function switchTab(tabId) {
       li.appendChild(delBtn);
       list.appendChild(li);
     });
+  
+    totalSpan.textContent = total.toFixed(2);
   }
   
   function addPlanned() {
     const text = document.getElementById('plannedText').value.trim();
+    const amount = document.getElementById('plannedAmount').value;
     const date = document.getElementById('plannedDate').value;
-    if (text && date) {
-      plannedItems.push({ text, date });
+    if (text && amount && date) {
+      plannedItems.push({ text, amount, date });
       savePlanned();
       renderPlanned();
       document.getElementById('plannedText').value = '';
+      document.getElementById('plannedAmount').value = '';
       document.getElementById('plannedDate').value = '';
     }
   }
@@ -190,7 +204,7 @@ function switchTab(tabId) {
     const text = noteInput.value.trim();
     if (!text) return;
   
-    const date = new Date().toLocaleDateString('bg-BG');С
+    const date = new Date().toLocaleDateString('bg-BG');
     if (!notes[date]) notes[date] = [];
     notes[date].push(text);
   
@@ -200,3 +214,4 @@ function switchTab(tabId) {
   }
   
   renderNotes();
+  
