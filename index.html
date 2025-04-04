@@ -20,14 +20,19 @@
     <div id="tab-content">
 
       <!-- Планирани разходи -->
-      <div id="planned" class="tab">
-        <div class="task-input">
-          <input type="text" id="plannedText" placeholder="Какво предстои за плащане">
-          <input type="date" id="plannedDate">
-          <button onclick="addPlanned()">Добави</button>
-        </div>
-        <ul id="plannedList"></ul>
+<div id="planned" class="tab">
+    <div>
+        <strong>Общо планирани:</strong> <span id="totalPlanned">0.00</span> лв
       </div>
+  <div class="task-input">
+    <input type="text" id="plannedText" placeholder="Какво ще плащаш...">
+    <input type="number" id="plannedAmount" placeholder="Сума">
+    <input type="date" id="plannedDate">
+    <button onclick="addPlanned()">Добави</button>
+  </div>
+  <ul id="plannedList"></ul>
+</div>
+
 
       <!-- Разходи -->
       <div id="expenses" class="tab hidden">
@@ -68,3 +73,4 @@
   <script src="js/app.js"></script>
 </body>
 </html>
+
