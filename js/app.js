@@ -76,7 +76,8 @@ function switchTab(tabId) {
     expenseItems.forEach((item, index) => {
       total += parseFloat(item.amount);
       const li = document.createElement('li');
-      li.textContent = `${item.text} – ${item.amount} лв – ${item.date}`;
+      li.textContent = `${item.text} – ${item.amount} лв – ${formatDateWithDay(item.date)}`;
+
   
       const delBtn = document.createElement('button');
       delBtn.textContent = 'X';
@@ -126,7 +127,9 @@ function switchTab(tabId) {
     incomeItems.forEach((item, index) => {
       total += parseFloat(item.amount);
       const li = document.createElement('li');
-      li.textContent = `${item.text} – ${item.amount} лв – ${item.date}`;
+      li.textContent = `${item.text} – ${item.amount} лв – ${formatDateWithDay(item.date)}`;
+
+
   
       const delBtn = document.createElement('button');
       delBtn.textContent = 'X';
@@ -204,7 +207,8 @@ function switchTab(tabId) {
     const text = noteInput.value.trim();
     if (!text) return;
   
-    const date = new Date().toLocaleDateString('bg-BG');
+    const date = formatDateWithDay(new Date());
+
     if (!notes[date]) notes[date] = [];
     notes[date].push(text);
   
@@ -214,4 +218,5 @@ function switchTab(tabId) {
   }
   
   renderNotes();
+  
   
